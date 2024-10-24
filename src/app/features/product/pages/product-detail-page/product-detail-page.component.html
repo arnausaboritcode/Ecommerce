@@ -1,0 +1,53 @@
+@if(!$loading()) {
+<div class="lg:max-w-5xl mx-auto flex flex-row gap-x-4 mt-20">
+  <div class="w-2/12 flex flex-col items-center justify-start">
+    <img
+      class="w-20 object-contain p-4 border border-black/90 rounded-md"
+      src="{{ $product().image }}"
+      alt="{{ $product().title }} image"
+    />
+  </div>
+  <div class="w-1/2 flex flex-col items-center justify-center">
+    <img
+      class="w-80 object-contain"
+      src="{{ $product().image }}"
+      alt="{{ $product().title }} image"
+    />
+  </div>
+  <div class="w-1/2 flex flex-col items-start justify-start">
+    <div class="flex flex-col gap-y-6 p-4">
+      <h2 class="text-2xl text-pretty font-bold">
+        {{ $product().title }}
+      </h2>
+      <div class="w-full flex items-center justify-between">
+        <div class="flex items-center gap-x-2">
+          <p class="text-sm text-gray-500 line-through">
+            {{ $product().price | oldprice | number : "1.2-2" }} €
+          </p>
+          <p class="text-sm text-blue-500 font-bold">
+            {{ $product().price | number : "1.2-2" }} €
+          </p>
+        </div>
+        <div>
+          <p>Review</p>
+        </div>
+      </div>
+      <p class="text-sm text-pretty text-black/90">
+        {{ $product().description }}
+      </p>
+
+      <p class="text-sm text-pretty font-medium text-black/90">
+        <span class="font-normal">Category:</span>
+        {{ $product().category | wordcase }}
+      </p>
+
+      <button
+        class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6"
+        (click)="addToCartHandler($product())"
+      >
+        <span class="text-sm text-pretty">Add to cart</span>
+      </button>
+    </div>
+  </div>
+</div>
+}

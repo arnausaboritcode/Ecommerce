@@ -11,6 +11,7 @@
       type="search"
       id="search"
       name="search"
+      autocomplete="off"
       class="block w-full px-2 ps-4 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
       placeholder="Search products here..."
       [(ngModel)]="this.query"
@@ -22,21 +23,36 @@
       <i class="fa-solid fa-magnifying-glass text-xs text-white"></i>
     </div>
     <div
-      class="absolute z-10 left-0 top-10 w-full mx-auto h-auto max-h-96 bg-white rounded-md overflow-y-scroll cursor-pointer text-black hidden group-focus-within:block"
+      class="absolute z-10 left-0 top-10 w-full mx-auto h-auto max-h-96 bg-white rounded-md cursor-pointer text-black hidden group-focus-within:block"
+      [ngClass]="{
+        'overflow-y-scroll':
+          this.$searchResults() && this.$searchResults()!.length > 12
+      }"
     >
       @for (product of $searchResults(); track product.id) {
 
       <div class="flex flex-col">
         <a
           class="flex items-center gap-x-2 text-sm font-medium px-3 py-1.5"
-          [routerLink]="['/products/{{ product.id }}']"
-          ><i class="fa-solid fa-magnifying-glass text-sm"></i>
+          [routerLink]="['/products', product.id]"
+        >
           {{ product.title }}</a
         >
       </div>
-      }
+      } @empty { @if(this.query) {
+      <p class="text-sm font-medium px-3 py-1.5">
+        No results found for
+        <span class="underline underline-black">{{ this.query }}</span>
+      </p>
+      } }
     </div>
   </form>
-
-  <i class="fa-solid fa-bucket text-lg"></i>
+  <button [routerLink]="['/cart']">
+    <i class="fa-solid fa-bucket text-xl relative">
+      <span
+        class="absolute z-10 w-4 h-4 flex items-center justify-center bg-blue-500 text-white p-1 text-[0.5rem] font-bold rounded-full -top-1 -right-2"
+        >{{ $cartItemsCount() }}</span
+      >
+    </i>
+  </button>
 </div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, WritableSignal } from '@angular/core';
-import { takeUntil } from 'rxjs';
+import { computed, Injectable, signal, WritableSignal } from '@angular/core';
+import { finalize, takeUntil } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { ProductDTO } from '../../../core/models/productDTO';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
@@ -10,8 +10,20 @@ import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.se
 })
 export class ProductService {
   public $products: WritableSignal<ProductDTO[]> = signal([]);
+  public $product: WritableSignal<ProductDTO> = signal({} as ProductDTO);
   public $queryString: WritableSignal<string> = signal('');
-  public $searchResults: WritableSignal<ProductDTO[]> = signal([]);
+  public $searchResults = computed(() => {
+    if (this.$queryString().length) {
+      return this.$products().filter((product) =>
+        product.title.toLowerCase().includes(this.$queryString().toLowerCase())
+      );
+    }
+    return;
+  });
+
+  public $cartProducts: WritableSignal<ProductDTO[]> = signal([]);
+  public $cartItemsCount = computed(() => this.$cartProducts().length);
+  public $loading: WritableSignal<boolean> = signal(false);
 
   constructor(
     private http: HttpClient,
@@ -29,10 +41,18 @@ export class ProductService {
     this.$queryString.set(query);
   }
 
-  searchProducts(): void {
-    const filteredProducts = this.$products().filter((product) =>
-      product.title.toLowerCase().includes(this.$queryString().toLowerCase())
-    );
-    this.$searchResults.set(filteredProducts);
+  addProduct(product: ProductDTO): void {
+    this.$cartProducts.set([...this.$cartProducts(), product]);
+  }
+
+  getProductById(id: number): void {
+    this.$loading.set(true);
+    this.http
+      .get<ProductDTO>(`${environment.BASE_API_URL}/products/${id}`)
+      .pipe(
+        takeUntil(this.destroyService$),
+        finalize(() => this.$loading.set(false))
+      )
+      .subscribe((product) => this.$product.set(product));
   }
 }

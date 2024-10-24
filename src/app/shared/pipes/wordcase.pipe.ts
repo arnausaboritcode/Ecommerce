@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class WordcasePipe implements PipeTransform {
-  transform(title: string): string {
-    return `${title.charAt(0).toUpperCase()}${title.slice(1)}`;
+  transform(word: string): string {
+    return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
   }
 }

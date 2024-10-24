@@ -1,21 +1,23 @@
 <div
   class="w-full flex flex-col gap-y-4 border border-gray-500/50 rounded-md relative group"
 >
-  <div class="absolute top-2 right-2">
-    <div
-      class="flex items-center gap-x-1 bg-orange-500 rounded-md text-white text-[0.7rem] p-1"
-    >
-      {{ product.rating.rate | number : "1.2-2" }}
-      <i class="fa-solid fa-star text-[0.5rem]"></i>
+  <a [routerLink]="['/products', product.id]">
+    <div class="absolute top-2 right-2">
+      <div
+        class="flex items-center gap-x-1 bg-orange-500 rounded-md text-white text-[0.7rem] p-1"
+      >
+        {{ product.rating.rate | number : "1.2-2" }}
+        <i class="fa-solid fa-star text-[0.5rem]"></i>
+      </div>
     </div>
-  </div>
-  <div class="w-full flex items-center justify-center py-6">
-    <img
-      class="w-36 h-48 object-contain"
-      src="{{ product.image }}"
-      alt="{{ product.title }} image"
-    />
-  </div>
+    <div class="w-full flex items-center justify-center py-6">
+      <img
+        class="w-36 h-48 object-contain"
+        src="{{ product.image }}"
+        alt="{{ product.title }} image"
+      />
+    </div>
+  </a>
 
   <div class="flex flex-col gap-y-1 border-t border-gray-500/20 p-4">
     <p class="text-xs text-pretty font-medium text-gray-500">
@@ -33,7 +35,8 @@
       </p>
     </div>
     <button
-      class="w-full flex items-center justify-center px-2 py-1.5 rounded-full border border-blue-500 mt-6"
+      class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6"
+      (click)="addToCartHandler(product)"
     >
       <span class="text-sm text-pretty">Add to cart</span>
     </button>
