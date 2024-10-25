@@ -23,6 +23,14 @@ export class ProductService {
 
   public $cartProducts: WritableSignal<ProductDTO[]> = signal([]);
   public $cartItemsCount = computed(() => this.$cartProducts().length);
+  public $totalCartPrice = computed(() => {
+    let total = 0;
+    this.$cartProducts().forEach((product) => {
+      total += product.price * product.quantity;
+    });
+    return total;
+  });
+
   public $loading: WritableSignal<boolean> = signal(false);
 
   constructor(
@@ -42,7 +50,31 @@ export class ProductService {
   }
 
   addProduct(product: ProductDTO): void {
-    this.$cartProducts.set([...this.$cartProducts(), product]);
+    if (!this.$cartProducts().find((p) => p.id === product.id)) {
+      product.quantity = 1;
+      this.$cartProducts.set([...this.$cartProducts(), product]);
+    } else {
+      this.increaseQuantity(product);
+    }
+  }
+
+  increaseQuantity(product: ProductDTO): void {
+    product.quantity++;
+    this.$cartProducts.update((cart) => [...cart]);
+  }
+
+  decreaseQuantity(product: ProductDTO): void {
+    if (product.quantity === 1) {
+      return this.removeProduct(product);
+    }
+    product.quantity--;
+    this.$cartProducts.update((cart) => [...cart]);
+  }
+
+  removeProduct(product: ProductDTO): void {
+    this.$cartProducts.update((cart) => {
+      return cart.filter((p) => p.id !== product.id);
+    });
   }
 
   getProductById(id: number): void {

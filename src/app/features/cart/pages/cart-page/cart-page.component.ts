@@ -17,6 +17,15 @@ export class CartPageComponent {
   public productService = inject(ProductService);
   public $cartProducts: Signal<ProductDTO[]> =
     this.productService.$cartProducts;
+  public $totalCartPrice: Signal<number> = this.productService.$totalCartPrice;
 
   constructor() {}
+
+  decreaseQuantityHandler(product: ProductDTO): void {
+    this.productService.decreaseQuantity(product);
+  }
+
+  increaseQuantityHandler(product: ProductDTO): void {
+    this.productService.increaseQuantity(product);
+  }
 }

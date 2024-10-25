@@ -9,4 +9,5 @@ export interface ProductDTO {
     rate: number;
     count: number;
   };
+  quantity: number;
 }

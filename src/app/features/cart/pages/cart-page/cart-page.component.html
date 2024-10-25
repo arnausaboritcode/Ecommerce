@@ -1,10 +1,11 @@
+@if ($cartProducts().length > 0) {
 <div class="lg:max-w-5xl mx-auto flex flex-row gap-x-4 mt-20">
   <div class="w-1/2 flex flex-col gap-y-6 justify-center items-start">
     @for (product of $cartProducts(); track product.id) {
     <div class="w-full flex flex-row items-center">
       <div class="w-full flex flex-col items-center justify-center">
         <img
-          class="w-24 object-contain"
+          class="w-20 object-contain"
           src="{{ product.image }}"
           alt="{{ product.title }} image"
         />
@@ -24,6 +25,16 @@
             </p>
           </div>
 
+          <div class="flex items-center gap-x-2 p-2 rounded-md">
+            <button (click)="increaseQuantityHandler(product)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <p class="text-sm text-black/90">{{ product.quantity }}</p>
+            <button (click)="decreaseQuantityHandler(product)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+          </div>
+
           <p class="text-sm text-pretty font-medium text-black/90">
             {{ product.category | wordcase }}
           </p>
@@ -33,4 +44,19 @@
 
     }
   </div>
+  <div class="w-1/2 flex flex-col gap-y-6 justify-start items-center">
+    <h2 class="text-2xl text-pretty font-bold text-black/90">Checkout</h2>
+    <p class="text-sm text-black/90">
+      {{ $totalCartPrice() | number : "1.2-2" }} €
+    </p>
+  </div>
 </div>
+} @else {
+<div
+  class="lg:max-w-5xl mx-auto flex flex-col items-center justify-center mt-20"
+>
+  <h2 class="text-2xl text-pretty font-bold text-black/90">
+    Your cart is empty
+  </h2>
+</div>
+}
