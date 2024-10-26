@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal, WritableSignal } from '@angular/core';
 import { finalize, takeUntil } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { FiltersDTO } from '../../../core/models/filtersDTO';
 import { ProductDTO } from '../../../core/models/productDTO';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 
@@ -11,6 +12,7 @@ import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.se
 export class ProductService {
   public $products: WritableSignal<ProductDTO[]> = signal([]);
   public $product: WritableSignal<ProductDTO> = signal({} as ProductDTO);
+  public $categories: WritableSignal<string[]> = signal([]);
   public $queryString: WritableSignal<string> = signal('');
   public $searchResults = computed(() => {
     if (this.$queryString().length) {
@@ -38,10 +40,25 @@ export class ProductService {
     private destroyService$: AutoDestroyService
   ) {}
 
-  getProducts(): void {
+  getProducts(filters?: FiltersDTO): void {
+    this.$loading.set(true);
+
+    let url = `${environment.BASE_API_URL}/products`;
+
+    if (filters?.categories) {
+      url += `/category/${filters.categories}`;
+    }
+
+    if (filters?.sortBy) {
+      url += `?sort=${filters.sortBy}`;
+    }
+
     this.http
-      .get<ProductDTO[]>(`${environment.BASE_API_URL}/products`)
-      .pipe(takeUntil(this.destroyService$))
+      .get<ProductDTO[]>(url)
+      .pipe(
+        takeUntil(this.destroyService$),
+        finalize(() => this.$loading.set(false))
+      )
       .subscribe((products) => this.$products.set(products));
   }
 
@@ -86,5 +103,12 @@ export class ProductService {
         finalize(() => this.$loading.set(false))
       )
       .subscribe((product) => this.$product.set(product));
+  }
+
+  getCategories(): void {
+    this.http
+      .get<string[]>(`${environment.BASE_API_URL}/products/categories`)
+      .pipe(takeUntil(this.destroyService$))
+      .subscribe((categories) => this.$categories.set(categories));
   }
 }

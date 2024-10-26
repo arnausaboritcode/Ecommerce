@@ -1,3 +1,39 @@
 <div class="lg:max-w-5xl mx-auto">
-  <app-product-list [products]="$products()"></app-product-list>
+  <div class="w-full flex flex-col gap-y-10 justify-center items-center">
+    <div class="w-full flex flex-row justify-end items-center">
+      <form [formGroup]="filterForm">
+        <ul class="flex items-center flex-wrap gap-4">
+          <li class="flex items-center gap-x-2">
+            <label for="sortBy" class="text-gray-500 text-sm">Sort by:</label>
+            <select
+              id="sortBy"
+              class="border border-gray-500/50 text-gray-500 text-sm ps-2"
+              formControlName="sortBy"
+            >
+              <option selected value="asc">Ascendent</option>
+              <option value="desc">Descendent</option>
+            </select>
+          </li>
+          <li class="flex items-center gap-x-2">
+            <label for="categories" class="text-gray-500 text-sm"
+              >Filter by:</label
+            >
+            <select
+              id="categories"
+              class="border border-gray-500/50 text-gray-500 text-sm ps-2"
+              formControlName="categories"
+            >
+              <option selected value="">All categories</option>
+              @for(category of $categories(); track category) {
+              <option [value]="category">{{ category | wordcase }}</option>
+              }
+            </select>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="w-full block">
+      <app-product-list [products]="$products()"></app-product-list>
+    </div>
+  </div>
 </div>

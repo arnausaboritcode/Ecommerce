@@ -1,7 +1,7 @@
 <div
-  class="w-full flex flex-col gap-y-4 border border-gray-500/50 rounded-md relative group"
+  class="w-full flex flex-col gap-y-4 border border-gray-500/50 rounded-md relative hover:shadow-lg transition duration-200"
 >
-  <a [routerLink]="['/products', product.id]">
+  <a class="group/image" [routerLink]="['/products', product.id]">
     <div class="absolute top-2 right-2">
       <div
         class="flex items-center gap-x-1 bg-orange-500 rounded-md text-white text-[0.7rem] p-1"
@@ -12,7 +12,7 @@
     </div>
     <div class="w-full flex items-center justify-center py-6">
       <img
-        class="w-36 h-48 object-contain"
+        class="w-36 h-48 object-contain group-hover/image:scale-105 transition duration-300"
         src="{{ product.image }}"
         alt="{{ product.title }} image"
       />
@@ -35,7 +35,7 @@
       </p>
     </div>
     <button
-      class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6"
+      class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
       (click)="addToCartHandler(product)"
     >
       <span class="text-sm text-pretty">Add to cart</span>

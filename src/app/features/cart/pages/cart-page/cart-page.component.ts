@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { OldpricePipe } from '../../../../shared/pipes/oldprice.pipe';
 import { TitlelimitPipe } from '../../../../shared/pipes/titlelimit.pipe';
@@ -9,7 +10,13 @@ import { ProductService } from '../../../product/services/product.service';
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [CommonModule, OldpricePipe, WordcasePipe, TitlelimitPipe],
+  imports: [
+    CommonModule,
+    OldpricePipe,
+    WordcasePipe,
+    TitlelimitPipe,
+    RouterModule,
+  ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
 })
