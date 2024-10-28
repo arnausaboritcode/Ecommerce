@@ -26,6 +26,7 @@ export class ProductDetailPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.productService.getProducts();
     this.route.params
       .pipe(takeUntil(this.destroyService$))
       .subscribe((params) => {

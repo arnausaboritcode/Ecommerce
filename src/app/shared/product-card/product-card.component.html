@@ -3,16 +3,15 @@
 >
   <a class="group/image" [routerLink]="['/products', product.id]">
     <div class="absolute top-2 right-2">
-      <div
-        class="flex items-center gap-x-1 bg-orange-500 rounded-md text-white text-[0.7rem] p-1"
+      <p
+        class="bg-orange-500 rounded-md text-white text-[0.7rem] px-1.5 py-0.5"
       >
-        {{ product.rating.rate | number : "1.2-2" }}
-        <i class="fa-solid fa-star text-[0.5rem]"></i>
-      </div>
+        -25%
+      </p>
     </div>
     <div class="w-full flex items-center justify-center py-6">
       <img
-        class="w-36 h-48 object-contain group-hover/image:scale-105 transition duration-300"
+        class="w-1/2 md:h-44 h-32 object-contain group-hover/image:scale-110 transition duration-300"
         src="{{ product.image }}"
         alt="{{ product.title }} image"
       />
@@ -34,6 +33,7 @@
         {{ product.price | number : "1.2-2" }} €
       </p>
     </div>
+
     <button
       class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
       (click)="addToCartHandler(product)"

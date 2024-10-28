@@ -28,14 +28,24 @@ import { WordcasePipe } from '../pipes/wordcase.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
-  @Input({ required: true }) product: ProductDTO = {} as ProductDTO;
+  @Input({ required: true }) product!: ProductDTO;
   public productService = inject(ProductService);
   public $cartProducts: Signal<ProductDTO[]> =
     this.productService.$cartProducts;
 
-  constructor() {}
-
   addToCartHandler(product: ProductDTO): void {
     this.productService.addProduct(product);
+  }
+
+  decreaseQuantityHandler(product: ProductDTO): void {
+    this.productService.decreaseQuantity(product);
+  }
+
+  increaseQuantityHandler(product: ProductDTO): void {
+    this.productService.increaseQuantity(product);
+  }
+
+  inCartHandler(product: ProductDTO): boolean {
+    return this.productService.inCart(product);
   }
 }

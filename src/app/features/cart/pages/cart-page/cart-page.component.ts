@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Signal,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { OldpricePipe } from '../../../../shared/pipes/oldprice.pipe';
@@ -19,6 +24,7 @@ import { ProductService } from '../../../product/services/product.service';
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartPageComponent {
   public productService = inject(ProductService);

@@ -11,7 +11,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent {
-  @Input({ required: true }) products: ProductDTO[] = [];
+  @Input({ required: true }) products!: ProductDTO[];
 
   constructor() {}
 }

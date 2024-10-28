@@ -59,7 +59,9 @@ export class ProductService {
         takeUntil(this.destroyService$),
         finalize(() => this.$loading.set(false))
       )
-      .subscribe((products) => this.$products.set(products));
+      .subscribe((products) => {
+        this.$products.set(products);
+      });
   }
 
   setQueryString(query: string) {
@@ -94,6 +96,12 @@ export class ProductService {
     });
   }
 
+  inCart(product: ProductDTO): boolean {
+    return this.$cartProducts().some(
+      (cartProduct) => cartProduct.id === product.id
+    );
+  }
+
   getProductById(id: number): void {
     this.$loading.set(true);
     this.http
@@ -102,7 +110,9 @@ export class ProductService {
         takeUntil(this.destroyService$),
         finalize(() => this.$loading.set(false))
       )
-      .subscribe((product) => this.$product.set(product));
+      .subscribe((product) => {
+        this.$product.set(product);
+      });
   }
 
   getCategories(): void {

@@ -1,67 +1,101 @@
 @if ($cartProducts().length > 0) {
-<div class="lg:max-w-5xl mx-auto flex md:flex-row flex-col gap-4">
-  <div class="md:w-2/3 w-full flex flex-col gap-y-4 justify-center items-start">
-    @for (product of $cartProducts(); track product.id) {
+<div class="w-full px-6 mt-20">
+  <div class="lg:max-w-5xl mx-auto flex md:flex-row flex-col gap-4">
     <div
-      class="w-full flex flex-row items-center border border-gray-500/30 p-4"
+      class="md:w-2/3 w-full flex flex-col gap-y-4 justify-center items-start"
     >
-      <div class="w-1/3 flex flex-col items-center justify-center">
-        <img
-          class="w-28 h-40 object-contain"
-          src="{{ product.image }}"
-          alt="{{ product.title }} image"
-        />
-      </div>
-      <div class="w-2/3 flex flex-col items-start justify-start">
-        <div class="flex flex-col gap-y-3 p-4">
-          <h2 class="text-xl text-pretty font-bold">
-            {{ product.title | titlelimit }}
-          </h2>
-          <p class="text-sm text-pretty font-medium text-black/90">
-            {{ product.category | wordcase }}
-          </p>
+      @for (product of $cartProducts(); track product.id) {
+      <div
+        class="w-full flex flex-row items-center border border-gray-500/30 p-4"
+      >
+        <div class="w-1/3 flex flex-col items-center justify-center">
+          <img
+            class="w-28 h-40 object-contain"
+            src="{{ product.image }}"
+            alt="{{ product.title }} image"
+          />
+        </div>
+        <div class="w-2/3 flex flex-col items-start justify-start">
+          <div class="flex flex-col gap-y-3 p-4">
+            <h2 class="text-xl text-pretty font-bold">
+              {{ product.title | titlelimit }}
+            </h2>
+            <p class="text-sm text-pretty font-medium text-black/90">
+              {{ product.category | wordcase }}
+            </p>
 
-          <div class="flex items-center gap-x-2">
-            <p class="text-sm text-gray-500 line-through">
-              {{ product.price | oldprice | number : "1.2-2" }} €
-            </p>
-            <p class="text-sm text-blue-500 font-bold">
-              {{ product.price | number : "1.2-2" }} €
-            </p>
-          </div>
+            <div class="flex items-center gap-x-2">
+              <p class="text-sm text-gray-500 line-through">
+                {{ product.price | oldprice | number : "1.2-2" }} €
+              </p>
+              <p class="text-sm text-blue-500 font-bold">
+                {{ product.price | number : "1.2-2" }} €
+              </p>
+            </div>
 
-          <div
-            class="w-fit h-fit flex items-center mt-4 border border-gray-500/30 rounded-md"
-          >
-            <button
-              class="text-white bg-blue-500 py-1.5 px-4 rounded-l-md hover:bg-blue-600 transition duration-200"
-              (click)="increaseQuantityHandler(product)"
+            <div
+              class="w-fit h-fit flex items-center mt-4 border border-gray-500/30 rounded-md"
             >
-              <i class="fa-solid fa-plus text-sm"></i>
-            </button>
-            <p class="text-base text-black/90 py-1.5 px-4">
-              {{ product.quantity }}
-            </p>
-            <button
-              class="text-white bg-blue-500 py-1.5 px-4 rounded-r-md hover:bg-blue-600 transition duration-200"
-              (click)="decreaseQuantityHandler(product)"
-            >
-              <i class="fa-solid fa-minus text-sm"></i>
-            </button>
+              <button
+                class="text-white bg-blue-500 py-1.5 px-4 rounded-l-md hover:bg-blue-600 transition duration-200"
+                (click)="increaseQuantityHandler(product)"
+              >
+                <i class="fa-solid fa-plus text-xs"></i>
+              </button>
+              <p class="text-sm text-black/90 py-1.5 px-4">
+                {{ product.quantity }}
+              </p>
+              <button
+                class="text-white bg-blue-500 py-1.5 px-4 rounded-r-md hover:bg-blue-600 transition duration-200"
+                (click)="decreaseQuantityHandler(product)"
+              >
+                <i class="fa-solid fa-minus text-xs"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    }
-  </div>
-  <div
-    class="md:w-1/3 w-full h-fit flex flex-col justify-start items-start bg-gray-300/30 p-4"
-  >
-    <h2 class="text-xl text-pretty font-semibold text-black/90">Checkout</h2>
-    <p class="text-sm text-black/90">
-      {{ $totalCartPrice() | number : "1.2-2" }} €
-    </p>
+      }
+    </div>
+    <div
+      class="md:w-1/3 w-full h-fit flex flex-col justify-start items-start bg-gray-300/30 p-4 gap-6"
+    >
+      <h2 class="text-xl text-pretty font-semibold text-black/90">Summary</h2>
+      <div class="flex flex-col gap-y-2">
+        @for (product of $cartProducts(); track product.id) {
+
+        <p class="text-sm text-gray-500 text-pretty">
+          {{ product.quantity }} x {{ product.title }} =
+          {{ product.price * product.quantity | number : "1.2-2" }} €
+        </p>
+
+        }
+      </div>
+
+      <h2 class="text-xl text-pretty font-semibold text-black/90">
+        Bill Details
+      </h2>
+      <div class="flex flex-col gap-y-2">
+        <p class="text-sm text-gray-500 text-pretty">IVA included</p>
+        <p class="text-sm text-gray-500 text-pretty">
+          Your order qualifies for FREE Shipping
+        </p>
+      </div>
+
+      <h2 class="text-xl text-pretty font-semibold text-black/90">
+        Total:
+        <span class="text-sm">
+          {{ $totalCartPrice() | number : "1.2-2" }} €</span
+        >
+      </h2>
+
+      <button
+        class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
+      >
+        <span class="text-sm text-pretty">Checkout</span>
+      </button>
+    </div>
   </div>
 </div>
 } @else {

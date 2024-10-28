@@ -19,9 +19,27 @@ export class HeaderComponent {
     this.productService.$searchResults;
   public $cartItemsCount: Signal<number> = this.productService.$cartItemsCount;
 
+  showSearchResults: boolean = false;
+  showMobileNav: boolean = false;
+  showMobileSearchResults: boolean = false;
+
   constructor() {}
 
   subscribeToInputChanges(): void {
     this.productService.setQueryString(this.query);
+  }
+
+  searchResultsUpdate(product: ProductDTO): void {
+    this.showSearchResults = false;
+    this.query = product.title;
+    this.subscribeToInputChanges();
+  }
+
+  onBlur(): void {
+    setTimeout(() => {
+      this.showSearchResults = false;
+      this.showMobileSearchResults = false;
+      this.showMobileNav = false;
+    }, 100);
   }
 }
