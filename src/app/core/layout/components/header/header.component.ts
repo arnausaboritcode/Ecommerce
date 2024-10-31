@@ -29,9 +29,9 @@ export class HeaderComponent {
     this.productService.setQueryString(this.query);
   }
 
-  searchResultsUpdate(product: ProductDTO): void {
+  searchResultsUpdate(): void {
     this.showSearchResults = false;
-    this.query = product.title;
+    this.query = '';
     this.subscribeToInputChanges();
   }
 
@@ -40,6 +40,6 @@ export class HeaderComponent {
       this.showSearchResults = false;
       this.showMobileSearchResults = false;
       this.showMobileNav = false;
-    }, 100);
+    }, 200);
   }
 }

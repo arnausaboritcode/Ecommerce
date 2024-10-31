@@ -1,7 +1,7 @@
 @if(!$loading()) {
 <div class="w-full px-6 mt-20">
   <div class="lg:max-w-5xl mx-auto flex lg:flex-row flex-col gap-10">
-    <div class="w-2/12 flex flex-col items-center justify-start">
+    <div class="w-fit flex flex-col items-center justify-start">
       <img
         class="w-20 object-contain p-4 border border-black/90 rounded-md cursor-pointer opacity-80 hover:opacity-100 transition duration-200"
         src="{{ $product().image }}"
@@ -16,7 +16,7 @@
       />
     </div>
     <div class="lg:w-1/2 w-full flex flex-col items-start justify-start">
-      <div class="flex flex-col gap-y-6 p-4">
+      <div class="w-full flex flex-col gap-y-6 p-4">
         <h2 class="text-2xl text-pretty font-bold">
           {{ $product().title }}
         </h2>
@@ -51,14 +51,40 @@
           {{ $product().category | wordcase }}
         </p>
 
+        @if (!inCartHandler($product())) {
         <button
           class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
-          (click)="productService.addProduct($product())"
+          (click)="addToCartHandler($product())"
         >
           <span class="text-sm text-pretty">Add to cart</span>
         </button>
+        } @else {
+        <div class="w-fit h-fit flex items-center mt-4">
+          <button
+            class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+            (click)="
+              decreaseQuantityHandler(getMatchedProductHandler($product()))
+            "
+          >
+            <i class="fa-solid fa-minus text-xs"></i>
+          </button>
+          <p class="text-sm text-black/90 py-1.5 px-4">
+            {{ getMatchedProductHandler($product()).quantity }}
+          </p>
+          <button
+            class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+            (click)="
+              increaseQuantityHandler(getMatchedProductHandler($product()))
+            "
+          >
+            <i class="fa-solid fa-plus text-xs"></i>
+          </button>
+        </div>
+        }
       </div>
     </div>
   </div>
 </div>
+} @else {
+<app-product-detail-skeleton />
 }

@@ -14,14 +14,20 @@ import {
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
+import { ProductListSkeletonComponent } from '../../../../shared/components/product-list-skeleton/product-list-skeleton.component';
+import { ProductListComponent } from '../../../../shared/components/product-list/product-list.component';
 import { WordcasePipe } from '../../../../shared/pipes/wordcase.pipe';
-import { ProductListComponent } from '../../../../shared/product-list/product-list.component';
 import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [ProductListComponent, ReactiveFormsModule, WordcasePipe],
+  imports: [
+    ProductListComponent,
+    ReactiveFormsModule,
+    WordcasePipe,
+    ProductListSkeletonComponent,
+  ],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,22 +35,23 @@ import { ProductService } from '../../services/product.service';
 export class ProductsPageComponent implements OnInit {
   public productService = inject(ProductService);
   public $products: Signal<ProductDTO[]> = this.productService.$products;
+  public $loading: Signal<boolean> = this.productService.$loading;
   public $categories: Signal<string[]> = this.productService.$categories;
 
   filterForm: FormGroup;
   sortBy: FormControl;
-  categories: FormControl;
+  category: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
     private destroy$: AutoDestroyService
   ) {
     this.sortBy = new FormControl('asc');
-    this.categories = new FormControl('');
+    this.category = new FormControl('');
 
     this.filterForm = this.formBuilder.group({
       sortBy: this.sortBy,
-      categories: this.categories,
+      category: this.category,
     });
   }
 
@@ -58,7 +65,7 @@ export class ProductsPageComponent implements OnInit {
     this.filterForm.valueChanges
       .pipe(takeUntil(this.destroy$), distinctUntilChanged())
       .subscribe((filters) => {
-        this.productService.getProducts(filters);
+        this.productService.getFilteredProducts(filters);
       });
   }
 }

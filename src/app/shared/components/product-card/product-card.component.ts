@@ -7,11 +7,11 @@ import {
   Signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductDTO } from '../../core/models/productDTO';
-import { ProductService } from '../../features/product/services/product.service';
-import { OldpricePipe } from '../pipes/oldprice.pipe';
-import { TitlelimitPipe } from '../pipes/titlelimit.pipe';
-import { WordcasePipe } from '../pipes/wordcase.pipe';
+import { ProductDTO } from '../../../core/models/productDTO';
+import { ProductService } from '../../../features/product/services/product.service';
+import { OldpricePipe } from '../../pipes/oldprice.pipe';
+import { TitlelimitPipe } from '../../pipes/titlelimit.pipe';
+import { WordcasePipe } from '../../pipes/wordcase.pipe';
 
 @Component({
   selector: 'app-product-card',
@@ -33,6 +33,8 @@ export class ProductCardComponent {
   public $cartProducts: Signal<ProductDTO[]> =
     this.productService.$cartProducts;
 
+  constructor() {}
+
   addToCartHandler(product: ProductDTO): void {
     this.productService.addProduct(product);
   }
@@ -47,5 +49,9 @@ export class ProductCardComponent {
 
   inCartHandler(product: ProductDTO): boolean {
     return this.productService.inCart(product);
+  }
+
+  getMatchedProductHandler(product: ProductDTO): ProductDTO {
+    return this.productService.getMatchedProduct(product);
   }
 }

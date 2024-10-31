@@ -33,12 +33,31 @@
         {{ product.price | number : "1.2-2" }} €
       </p>
     </div>
-
+    @if (!inCartHandler(product)) {
     <button
       class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
       (click)="addToCartHandler(product)"
     >
       <span class="text-sm text-pretty">Add to cart</span>
     </button>
+    } @else {
+    <div class="w-fit h-fit flex items-center mt-4">
+      <button
+        class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+        (click)="decreaseQuantityHandler(getMatchedProductHandler(product))"
+      >
+        <i class="fa-solid fa-minus text-xs"></i>
+      </button>
+      <p class="text-sm text-black/90 py-1.5 px-4">
+        {{ getMatchedProductHandler(product).quantity }}
+      </p>
+      <button
+        class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+        (click)="increaseQuantityHandler(getMatchedProductHandler(product))"
+      >
+        <i class="fa-solid fa-plus text-xs"></i>
+      </button>
+    </div>
+    }
   </div>
 </div>

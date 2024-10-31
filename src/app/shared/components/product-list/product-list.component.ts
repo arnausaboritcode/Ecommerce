@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ProductDTO } from '../../core/models/productDTO';
+import { ProductDTO } from '../../../core/models/productDTO';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({

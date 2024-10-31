@@ -26,8 +26,8 @@
     <div class="w-full flex flex-col gap-y-10 justify-center items-center">
       <div class="w-full flex flex-row justify-end items-center">
         <form [formGroup]="filterForm">
-          <ul class="flex items-center flex-wrap gap-4">
-            <li class="flex items-center gap-x-2">
+          <ul class="flex items-center gap-4">
+            <li class="flex flex-wrap items-center gap-2">
               <label for="sortBy" class="text-gray-500 text-sm">Sort by:</label>
               <select
                 id="sortBy"
@@ -38,14 +38,14 @@
                 <option value="desc">Descendent</option>
               </select>
             </li>
-            <li class="flex items-center gap-x-2">
+            <li class="flex flex-wrap items-center gap-2">
               <label for="categories" class="text-gray-500 text-sm"
                 >Filter by:</label
               >
               <select
                 id="categories"
                 class="border border-gray-500/50 text-gray-500 text-sm ps-2"
-                formControlName="categories"
+                formControlName="category"
               >
                 <option selected value="">All categories</option>
                 @for(category of $categories(); track category) {
@@ -57,7 +57,13 @@
         </form>
       </div>
       <div class="w-full block">
+        @if(!$loading()) {
         <app-product-list [products]="$products()"></app-product-list>
+        } @else {
+        <app-product-list-skeleton
+          [products]="$products()"
+        ></app-product-list-skeleton>
+        }
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
   <nav class="w-full border-b border-gray-700 py-2.5 px-10 bg-white">
     <div class="lg:max-w-5xl mx-auto h-14 flex items-center justify-between">
       <a [routerLink]="['/products']">
-        <img src="logo.svg" class="w-32" alt="Logo"
+        <img src="full-logo.svg" class="w-44" alt="Logo"
       /></a>
 
       <form class="w-2/3 relative group hidden md:block">
@@ -47,9 +47,9 @@
 
           <div class="flex flex-col">
             <a
-              class="flex items-center gap-x-2 text-sm text-gray-500 px-3 py-1.5 hover:bg-gray-400/30"
+              class="flex items-center gap-x-2 text-sm text-gray-500 px-3 py-1.5 hover:bg-gray-200"
               [routerLink]="['/products', product.id]"
-              (click)="searchResultsUpdate(product)"
+              (click)="searchResultsUpdate()"
             >
               {{ product.title }}</a
             >
@@ -116,7 +116,7 @@
               <a
                 class="flex items-center gap-x-2 text-sm text-gray-500 px-3 py-1.5 hover:bg-gray-400/30"
                 [routerLink]="['/products', product.id]"
-                (click)="searchResultsUpdate(product)"
+                (click)="searchResultsUpdate()"
               >
                 {{ product.title }}</a
               >

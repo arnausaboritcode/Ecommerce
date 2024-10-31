@@ -33,23 +33,21 @@
               </p>
             </div>
 
-            <div
-              class="w-fit h-fit flex items-center mt-4 border border-gray-500/30 rounded-md"
-            >
+            <div class="w-fit h-fit flex items-center mt-4">
               <button
-                class="text-white bg-blue-500 py-1.5 px-4 rounded-l-md hover:bg-blue-600 transition duration-200"
-                (click)="increaseQuantityHandler(product)"
+                class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+                (click)="decreaseQuantityHandler(product)"
               >
-                <i class="fa-solid fa-plus text-xs"></i>
+                <i class="fa-solid fa-minus text-xs"></i>
               </button>
               <p class="text-sm text-black/90 py-1.5 px-4">
                 {{ product.quantity }}
               </p>
               <button
-                class="text-white bg-blue-500 py-1.5 px-4 rounded-r-md hover:bg-blue-600 transition duration-200"
-                (click)="decreaseQuantityHandler(product)"
+                class="text-black/90 bg-gray-100 border border-gray-200 w-8 h-8 rounded-full hover:bg-white transition duration-200"
+                (click)="increaseQuantityHandler(product)"
               >
-                <i class="fa-solid fa-minus text-xs"></i>
+                <i class="fa-solid fa-plus text-xs"></i>
               </button>
             </div>
           </div>

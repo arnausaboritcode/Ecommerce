@@ -5,6 +5,7 @@ import {
   inject,
   Signal,
 } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { OldpricePipe } from '../../../../shared/pipes/oldprice.pipe';
@@ -21,6 +22,7 @@ import { ProductService } from '../../../product/services/product.service';
     WordcasePipe,
     TitlelimitPipe,
     RouterModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
