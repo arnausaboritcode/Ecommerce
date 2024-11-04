@@ -1,4 +1,11 @@
 //Search input native changes
+input[type="search"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   height: 1em;
