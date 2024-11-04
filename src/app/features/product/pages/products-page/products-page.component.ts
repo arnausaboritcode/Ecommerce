@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,7 +12,9 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
+import { FiltersDTO } from '../../../../core/models/filtersDTO';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { ProductListSkeletonComponent } from '../../../../shared/components/product-list-skeleton/product-list-skeleton.component';
@@ -27,6 +30,8 @@ import { ProductService } from '../../services/product.service';
     ReactiveFormsModule,
     WordcasePipe,
     ProductListSkeletonComponent,
+    InfiniteScrollDirective,
+    NgOptimizedImage,
   ],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.scss',
@@ -35,6 +40,7 @@ import { ProductService } from '../../services/product.service';
 export class ProductsPageComponent implements OnInit {
   public productService = inject(ProductService);
   public $products: Signal<ProductDTO[]> = this.productService.$products;
+  public $allproducts: Signal<ProductDTO[]> = this.productService.$allProducts;
   public $loading: Signal<boolean> = this.productService.$loading;
   public $categories: Signal<string[]> = this.productService.$categories;
 
@@ -64,8 +70,8 @@ export class ProductsPageComponent implements OnInit {
   subscribeToFormChanges(): void {
     this.filterForm.valueChanges
       .pipe(takeUntil(this.destroy$), distinctUntilChanged())
-      .subscribe((filters) => {
-        this.productService.getFilteredProducts(filters);
+      .subscribe((filters: FiltersDTO) => {
+        this.productService.getProducts(filters);
       });
   }
 }

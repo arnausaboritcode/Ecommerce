@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
@@ -19,6 +19,7 @@ import { ProductService } from '../../services/product.service';
     TitlelimitPipe,
     OldpricePipe,
     ProductDetailSkeletonComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.scss',
@@ -27,13 +28,13 @@ export class ProductDetailPageComponent implements OnInit {
   public productService = inject(ProductService);
   public $product: Signal<ProductDTO> = this.productService.$product;
   public $loading: Signal<boolean> = this.productService.$loading;
+
   constructor(
     private route: ActivatedRoute,
     private destroyService$: AutoDestroyService
   ) {}
 
   ngOnInit(): void {
-    this.productService.getProducts();
     this.route.params
       .pipe(takeUntil(this.destroyService$))
       .subscribe((params) => {

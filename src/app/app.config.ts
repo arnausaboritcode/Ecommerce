@@ -11,7 +11,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideToastr({
-      /*  toastComponent: 'ngx-toast', */
       timeOut: 3000,
       preventDuplicates: false,
     }),

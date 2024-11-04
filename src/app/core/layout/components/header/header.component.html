@@ -1,28 +1,33 @@
-<div class="w-full fixed top-0 z-10">
+<div class="w-full fixed top-0 z-50">
   <div class="w-full h-8 bg-black/90 px-10">
     <div
       class="lg:max-w-5xl h-full mx-auto flex items-center justify-start gap-x-2"
     >
-      <i class="fa-solid fa-truck text-yellow-500"></i>
-      <p class="text-xs text-white font-medium">
+      <i class="fa-solid fa-truck text-yellow-500 text-sm"></i>
+      <p class="text-xs text-pretty text-white/90 font-medium">
         FREE Express Shipping this Week
       </p>
     </div>
   </div>
-  <nav class="w-full border-b border-gray-700 py-2.5 px-10 bg-white">
+  <nav class="w-full border-b border-gray-700 py-2.5 px-6 bg-white">
     <div class="lg:max-w-5xl mx-auto h-14 flex items-center justify-between">
       <a [routerLink]="['/products']">
-        <img src="full-logo.svg" class="w-44" alt="Logo"
+        <img
+          ngSrc="full-logo.svg"
+          class="w-44"
+          alt="WearAPair logo"
+          width="300"
+          height="57"
+          priority
       /></a>
 
       <form class="w-2/3 relative group hidden md:block">
         <input
-          #searchInput
           type="search"
           id="search"
           name="search"
           autocomplete="off"
-          class="block w-full px-2 ps-4 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
+          class="block w-full px-2 ps-12 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
           placeholder="Search products here..."
           [(ngModel)]="this.query"
           (input)="subscribeToInputChanges()"
@@ -30,7 +35,7 @@
           (blur)="onBlur()"
         />
         <div
-          class="absolute inset-y-0 end-0 flex items-center pointer-events-none bg-blue-500 p-3"
+          class="absolute inset-y-0 start-0 flex items-center pointer-events-none bg-blue-500 p-3"
         >
           <i class="fa-solid fa-magnifying-glass text-xs text-white"></i>
         </div>
@@ -47,10 +52,13 @@
 
           <div class="flex flex-col">
             <a
-              class="flex items-center gap-x-2 text-sm text-gray-500 px-3 py-1.5 hover:bg-gray-200"
+              class="flex items-center gap-x-2 text-sm text-pretty text-gray-500 px-3 py-1.5 hover:bg-gray-200"
               [routerLink]="['/products', product.id]"
               (click)="searchResultsUpdate()"
             >
+              <i
+                class="fa-solid fa-magnifying-glass text-[0.6rem] text-gray-500"
+              ></i>
               {{ product.title }}</a
             >
           </div>
@@ -66,11 +74,7 @@
       <div class="flex items-center gap-x-6">
         <div class="block md:hidden">
           <button (click)="showMobileNav = !showMobileNav">
-            @if(showMobileNav) {
-            <i class="fa-solid fa-xmark text-xl text-black/90"></i>
-            } @else {
             <i class="fa-solid fa-magnifying-glass text-lg text-black/90"></i>
-            }
           </button>
         </div>
         <button [routerLink]="['/cart']">
@@ -84,52 +88,62 @@
       </div>
       @if(showMobileNav) {
       <div
-        class="absolute -z-10 left-0 top-0 w-dvw h-dvh mx-auto backdrop-blur-sm bg-[hsla(0,0%,7%,.36)] text-black px-6"
+        class="absolute z-10 left-0 top-0 w-dvw h-dvh mx-auto bg-white text-black"
       >
-        <div class="relative top-32">
-          <input
-            #searchInput
-            type="search"
-            id="search"
-            name="search"
-            autocomplete="off"
-            class="block w-full px-2 ps-4 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
-            placeholder="Search products here..."
-            [(ngModel)]="this.query"
-            (input)="subscribeToInputChanges()"
-            (focus)="showMobileSearchResults = true"
-            (blur)="onBlur()"
-          />
+        <div
+          class="w-full h-20 flex flex-col items-center justify-center py-2.5 px-6 border-b border-gray-500"
+        >
           <div
-            class="absolute top-0 inset-y-0 end-0 flex items-center pointer-events-none bg-blue-500 p-3"
+            class="w-full h-fit flex items-center justify-center gap-x-6 relative"
           >
-            <i class="fa-solid fa-magnifying-glass text-xs text-white"></i>
-          </div>
-
-          @if (showMobileSearchResults) {
-          <div
-            class="absolute left-0 top-10 w-full h-auto z-20 mx-auto text-black rounded-md shadow-md bg-white overflow-y-scroll"
-          >
-            @for (product of $searchResults(); track product.id) {
-
-            <div class="flex flex-col">
-              <a
-                class="flex items-center gap-x-2 text-sm text-gray-500 px-3 py-1.5 hover:bg-gray-400/30"
-                [routerLink]="['/products', product.id]"
-                (click)="searchResultsUpdate()"
-              >
-                {{ product.title }}</a
-              >
+            <input
+              #searchInput
+              type="search"
+              id="search"
+              name="search"
+              autocomplete="off"
+              class="block w-full px-2 ps-12 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
+              placeholder="Search products here..."
+              [(ngModel)]="this.query"
+              (input)="subscribeToInputChanges()"
+              (focus)="showMobileSearchResults = true"
+            />
+            <div
+              class="absolute top-0 inset-y-0 start-0 flex items-center pointer-events-none bg-blue-500 p-3"
+            >
+              <i class="fa-solid fa-magnifying-glass text-xs text-white"></i>
             </div>
-            } @empty { @if(this.query) {
-            <p class="text-sm font-medium px-3 py-1.5">
-              No results found for
-              <span class="underline underline-black">{{ this.query }}</span>
-            </p>
-            } }
+            <button (click)="showMobileNav = !showMobileNav">
+              <i class="fa-solid fa-xmark text-2xl text-black/90"></i>
+            </button>
           </div>
-          }
         </div>
+        @if (showMobileSearchResults) {
+        <div
+          class="w-full h-dvh z-20 mx-auto text-black overflow-y-scroll py-2"
+        >
+          @for (product of $searchResults(); track product.id) {
+
+          <div class="flex flex-col">
+            <a
+              class="flex items-center gap-x-2 text-sm text-gray-500 text-pretty px-3 py-1.5 hover:bg-gray-200"
+              [routerLink]="['/products', product.id]"
+              (click)="searchResultsUpdate()"
+            >
+              <i
+                class="fa-solid fa-magnifying-glass text-[0.6rem] text-gray-500"
+              ></i>
+              {{ product.title }}</a
+            >
+          </div>
+          } @empty { @if(this.query) {
+          <p class="text-sm font-medium px-3 py-1.5">
+            No results found for
+            <span class="underline underline-black">{{ this.query }}</span>
+          </p>
+          } }
+        </div>
+        }
       </div>
       }
     </div>

@@ -1,4 +1,4 @@
 export interface FiltersDTO {
-  sortBy: string;
-  category: string;
+  sortBy?: string;
+  category?: string;
 }

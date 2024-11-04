@@ -1,7 +1,10 @@
 <div
-  class="w-full flex flex-col gap-y-4 border border-gray-500/50 rounded-md relative hover:shadow-lg transition duration-200"
+  class="w-full h-full flex flex-col gap-y-4 border border-gray-500/50 rounded-md relative hover:shadow-lg transition duration-200"
 >
-  <a class="group/image" [routerLink]="['/products', product.id]">
+  <a
+    class="w-full h-full group/image flex items-center justify-center"
+    [routerLink]="['/products', product.id]"
+  >
     <div class="absolute top-2 right-2">
       <p
         class="bg-orange-500 rounded-md text-white text-[0.7rem] px-1.5 py-0.5"
@@ -9,27 +12,30 @@
         -25%
       </p>
     </div>
-    <div class="w-full flex items-center justify-center py-6">
+    <div class="w-1/2 mx-auto h-44 relative">
       <img
-        class="w-1/2 md:h-44 h-32 object-contain group-hover/image:scale-110 transition duration-300"
-        src="{{ product.image }}"
-        alt="{{ product.title }} image"
+        class="w-full object-contain group-hover/image:scale-110 transition duration-200 py-6"
+        ngSrc="{{ product.image }}"
+        alt="{{ product.title }} product image"
+        fill
       />
     </div>
   </a>
 
-  <div class="flex flex-col gap-y-1 border-t border-gray-500/20 p-4">
+  <div
+    class="h-full flex flex-col justify-between gap-y-1 border-t border-gray-500/20 p-4"
+  >
     <p class="text-xs text-pretty font-medium text-gray-500">
       {{ product.category | wordcase }}
     </p>
     <h2 class="text-sm text-pretty font-semibold">
       {{ product.title | titlelimit }}
     </h2>
-    <div class="flex items-center gap-x-2">
-      <p class="text-sm text-gray-500 line-through">
+    <div class="flex flex-wrap items-center gap-x-2">
+      <p class="text-sm text-pretty text-gray-500 line-through">
         {{ product.price | oldprice | number : "1.2-2" }} €
       </p>
-      <p class="text-sm text-blue-500 font-bold">
+      <p class="text-sm text-pretty text-blue-500 font-bold">
         {{ product.price | number : "1.2-2" }} €
       </p>
     </div>

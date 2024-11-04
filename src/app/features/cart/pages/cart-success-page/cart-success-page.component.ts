@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-cart-success-page',
   standalone: true,
   imports: [RouterModule, NgOptimizedImage],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss',
+  templateUrl: './cart-success-page.component.html',
+  styleUrl: './cart-success-page.component.scss',
 })
-export class FooterComponent {}
+export class CartSuccessPageComponent {
+  constructor() {}
+}

@@ -43,7 +43,7 @@ export class ProductService {
     private snackBarService: SnackBarService
   ) {}
 
-  getProducts(): void {
+  getAllProducts(): void {
     this.$loading.set(true);
 
     this.http
@@ -54,11 +54,10 @@ export class ProductService {
       )
       .subscribe((products) => {
         this.$allProducts.set(products);
-        this.$products.set(products);
       });
   }
 
-  getFilteredProducts(filters: FiltersDTO): void {
+  getProducts(filters?: FiltersDTO): void {
     this.$loading.set(true);
 
     let url = `${environment.BASE_API_URL}/products`;
@@ -103,7 +102,6 @@ export class ProductService {
   increaseQuantity(product: ProductDTO): void {
     product.quantity++;
     this.$cartProducts.update((cart) => [...cart]);
-    this.snackBarService.showSuccess('Product quantity increased');
   }
 
   decreaseQuantity(product: ProductDTO): void {
@@ -112,13 +110,16 @@ export class ProductService {
     }
     product.quantity--;
     this.$cartProducts.update((cart) => [...cart]);
-    this.snackBarService.showSuccess('Product quantity decreased');
   }
 
   inCart(product: ProductDTO): boolean {
     return this.$cartProducts().some(
       (cartProduct) => cartProduct.id === product.id
     );
+  }
+
+  resetCart(): void {
+    this.$cartProducts.set([]);
   }
 
   getMatchedProduct(product: ProductDTO): ProductDTO {
@@ -146,10 +147,6 @@ export class ProductService {
       )
       .subscribe((product) => {
         this.$product.set(product);
-        /*  const cartProduct = this.$cartProducts().find(
-          (p) => p.id === product.id
-        );
-        product.quantity = cartProduct ? cartProduct.quantity : 0; */
       });
   }
 

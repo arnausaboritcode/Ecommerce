@@ -1,0 +1,26 @@
+<div class="w-full h-full px-6">
+  <div
+    class="lg:max-w-5xl mx-auto h-full flex flex-col items-center justify-center gap-y-2"
+  >
+    <img
+      class="w-20 mx-auto"
+      ngSrc="success.gif"
+      alt="Success logo GIF"
+      width="100"
+      height="100"
+    />
+    <h2 class="text-2xl text-pretty font-bold text-black/90">
+      Thank you for ordering
+    </h2>
+    <p class="text-sm text-pretty text-gray-500 text-center">
+      Your order has been successfully placed. You will receive an email with
+      details about your order.
+    </p>
+    <button
+      class="w-fit flex items-center justify-center px-4 py-1.5 rounded-md border border-blue-500 mt-3 hover:bg-blue-500 hover:text-white transition duration-200"
+      [routerLink]="['/products']"
+    >
+      Continue shopping
+    </button>
+  </div>
+</div>

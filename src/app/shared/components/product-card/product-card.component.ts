@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,6 +22,7 @@ import { WordcasePipe } from '../../pipes/wordcase.pipe';
     TitlelimitPipe,
     OldpricePipe,
     RouterModule,
+    NgOptimizedImage,
   ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',

@@ -1,22 +1,15 @@
-<div class="bg-[#115061] py-20 text-white">
-  <div
-    class="lg:max-w-5xl mx-auto px-6 flex md:flex-row flex-col items-center justify-between gap-10"
-  >
+<div class="bg-[#115061] py-24 text-white">
+  <div class="lg:max-w-5xl mx-auto px-6 flex items-center justify-start">
     <div class="flex flex-col gap-5">
-      <p class="text-base font-semibold text-pretty">Starting at 7,95€</p>
+      <p class="text-base font-semibold text-pretty">
+        <span class="text-sm">Starting at</span> 7,95€
+      </p>
       <h1 class="max-w-[500px] text-4xl font-bold text-pretty">
         The Best Products Collection in 2024
       </h1>
       <p class="text-lg font-bold text-pretty">
         Exclusive offer <span class="text-yellow-500">-25%</span> off this week
       </p>
-    </div>
-    <div class="flex flex-col gap-5">
-      <img
-        class="w-1/2 mx-auto"
-        src="shopping-cart.webp"
-        alt="Sopping Bag image"
-      />
     </div>
   </div>
 </div>
@@ -60,9 +53,7 @@
         @if(!$loading()) {
         <app-product-list [products]="$products()"></app-product-list>
         } @else {
-        <app-product-list-skeleton
-          [products]="$products()"
-        ></app-product-list-skeleton>
+        <app-product-list-skeleton></app-product-list-skeleton>
         }
       </div>
     </div>

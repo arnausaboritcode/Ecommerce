@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,7 +6,7 @@ import {
   Signal,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ProductDTO } from '../../../../core/models/productDTO';
 import { OldpricePipe } from '../../../../shared/pipes/oldprice.pipe';
 import { TitlelimitPipe } from '../../../../shared/pipes/titlelimit.pipe';
@@ -23,6 +23,7 @@ import { ProductService } from '../../../product/services/product.service';
     TitlelimitPipe,
     RouterModule,
     ReactiveFormsModule,
+    NgOptimizedImage,
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
@@ -34,7 +35,7 @@ export class CartPageComponent {
     this.productService.$cartProducts;
   public $totalCartPrice: Signal<number> = this.productService.$totalCartPrice;
 
-  constructor() {}
+  constructor(private route: Router) {}
 
   decreaseQuantityHandler(product: ProductDTO): void {
     this.productService.decreaseQuantity(product);
@@ -42,5 +43,10 @@ export class CartPageComponent {
 
   increaseQuantityHandler(product: ProductDTO): void {
     this.productService.increaseQuantity(product);
+  }
+
+  placeOrderHandler(): void {
+    this.productService.resetCart();
+    this.route.navigate(['/cart/success']);
   }
 }
