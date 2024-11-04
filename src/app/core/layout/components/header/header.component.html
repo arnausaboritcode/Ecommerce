@@ -48,7 +48,12 @@
               this.$searchResults() && this.$searchResults()!.length > 12
           }"
         >
-          @for (product of $searchResults(); track product.id) {
+          @if(this.query && this.$searchResults() &&
+          this.$searchResults()!.length > 0) {
+          <p class="text-sm text-pretty font-medium px-3 py-1.5">
+            Did you mean...
+          </p>
+          } @for (product of $searchResults(); track product.id) {
 
           <div class="flex flex-col">
             <a
@@ -121,7 +126,12 @@
         <div
           class="w-full h-dvh z-20 mx-auto text-black overflow-y-scroll py-2"
         >
-          @for (product of $searchResults(); track product.id) {
+          @if(this.query && this.$searchResults() &&
+          this.$searchResults()!.length > 0) {
+          <p class="text-sm text-pretty font-medium px-3 py-1.5">
+            Did you mean...
+          </p>
+          } @for (product of $searchResults(); track product.id) {
 
           <div class="flex flex-col">
             <a
