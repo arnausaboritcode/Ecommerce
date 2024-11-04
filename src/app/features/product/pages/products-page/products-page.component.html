@@ -23,9 +23,11 @@
             <li class="flex flex-wrap items-center gap-2">
               <label for="sortBy" class="text-gray-500 text-sm">Sort by:</label>
               <select
+                #sortBy
                 id="sortBy"
-                class="border border-gray-500/50 text-gray-500 text-sm ps-2"
+                class="bg-white border border-gray-500/50 text-gray-500 text-sm ps-2"
                 formControlName="sortBy"
+                (change)="sortBy.blur()"
               >
                 <option selected value="asc">Ascendent</option>
                 <option value="desc">Descendent</option>
@@ -36,9 +38,11 @@
                 >Filter by:</label
               >
               <select
+                #categories
                 id="categories"
                 class="border border-gray-500/50 text-gray-500 text-sm ps-2"
                 formControlName="category"
+                (change)="categories.blur()"
               >
                 <option selected value="">All categories</option>
                 @for(category of $categories(); track category) {

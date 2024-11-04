@@ -97,12 +97,11 @@
             class="w-full h-fit flex items-center justify-center gap-x-6 relative"
           >
             <input
-              #searchInput
               type="search"
               id="search"
               name="search"
               autocomplete="off"
-              class="block w-full px-2 ps-12 py-1.5 text-sm text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
+              class="block w-full px-2 ps-12 py-1.5 text-base text-black/90 border-[1.5px] border-blue-500 placeholder:text-black/55 focus:outline-none focus:ring-0"
               placeholder="Search products here..."
               [(ngModel)]="this.query"
               (input)="subscribeToInputChanges()"
