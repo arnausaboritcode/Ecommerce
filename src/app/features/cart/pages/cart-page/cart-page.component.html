@@ -5,7 +5,7 @@
       @for (product of $cartProducts(); track product.id) {
       <div class="w-full flex flex-row items-start gap-6">
         <a
-          class="w-20 h-24 flex flex-col items-center justify-center relative"
+          class="w-20 h-20 flex flex-col items-center justify-center relative"
           [routerLink]="['/products', product.id]"
         >
           <img
