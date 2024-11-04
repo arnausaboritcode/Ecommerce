@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class OldpricePipe implements PipeTransform {
   transform(price: number): number {
-    return price + price * 0.2;
+    return price + price * 0.15;
   }
 }
