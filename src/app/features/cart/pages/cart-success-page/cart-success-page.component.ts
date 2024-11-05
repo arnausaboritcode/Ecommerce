@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule, NgOptimizedImage],
   templateUrl: './cart-success-page.component.html',
   styleUrl: './cart-success-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartSuccessPageComponent {
   constructor() {}

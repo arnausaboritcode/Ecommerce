@@ -1,5 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { ProductDTO } from '../../../../core/models/productDTO';
@@ -23,6 +29,7 @@ import { ProductService } from '../../services/product.service';
   ],
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailPageComponent implements OnInit {
   public productService = inject(ProductService);

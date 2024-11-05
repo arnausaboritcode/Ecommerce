@@ -1,5 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../../../features/product/services/product.service';
@@ -11,6 +17,7 @@ import { ProductDTO } from '../../../models/productDTO';
   imports: [FormsModule, RouterModule, CommonModule, NgOptimizedImage],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   public query: string = '';
