@@ -98,7 +98,7 @@
 
       <button
         class="w-full flex items-center justify-center px-2 py-1.5 rounded-md border border-blue-500 mt-6 hover:bg-blue-500 hover:text-white transition duration-200"
-        (click)="placeOrderHandler()"
+        [routerLink]="['/cart/success']"
       >
         <span class="text-sm text-pretty">Checkout</span>
       </button>

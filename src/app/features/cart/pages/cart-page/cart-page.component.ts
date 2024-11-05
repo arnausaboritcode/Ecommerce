@@ -44,9 +44,4 @@ export class CartPageComponent {
   increaseQuantityHandler(product: ProductDTO): void {
     this.productService.increaseQuantity(product);
   }
-
-  placeOrderHandler(): void {
-    this.productService.resetCart();
-    this.route.navigate(['/cart/success']);
-  }
 }

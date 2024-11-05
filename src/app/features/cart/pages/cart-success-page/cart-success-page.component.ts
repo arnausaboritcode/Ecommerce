@@ -1,6 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ProductService } from '../../../product/services/product.service';
 
 @Component({
   selector: 'app-cart-success-page',
@@ -10,6 +16,11 @@ import { RouterModule } from '@angular/router';
   styleUrl: './cart-success-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartSuccessPageComponent {
+export class CartSuccessPageComponent implements OnInit {
+  public productService = inject(ProductService);
   constructor() {}
+
+  ngOnInit(): void {
+    this.productService.resetCart();
+  }
 }
